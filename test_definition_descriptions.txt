@@ -1,0 +1,10 @@
+testName: the name of the test
+testStatus: a user defined status of the test (e.g. created and pending approval, active, stopped)
+startDate: the date when users should begin to be assigned to the test
+endDate: the date when users should stop being assigned to the test
+treatments: a list of treatment objects
+  treatmentName: the name of the treatment
+  numSamples: the maximum number of users that should be placed into the treatment
+  properties: the properties that are affected by this treatment, this can be any arbitrary key-pair
+requiredAttributes: this is a list of required attributes that the user must have.
+  Note - we have only provided a human-readable format for the attributes but we look for you to design your own desired data structure

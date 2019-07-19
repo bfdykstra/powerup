@@ -1,0 +1,97 @@
+[
+    {
+        "testName": "Credit Card Account Opening - Credit Line Test",
+        "testStatus": "active",
+        "startDate": "2019-06-01",
+        "endDate": "2019-10-31",
+        "treatments": [
+            {
+                "properties": {
+                    "credit_line": 10000
+                },
+                "numSamples": 1000,
+                "treatmentName": "control"
+            },
+            {
+                "properties": {
+                    "credit_line": 12000
+                },
+                "numSamples": 500,
+                "treatmentName": "treatment_1"
+            }
+        ],
+        "requiredAttributes": [
+            "user is under 30 years old",
+            "user is applying for their first credit card"
+        ]
+    },
+    {
+        "testName": "Credit Card Account Opening - Credit APR Test",
+        "testStatus": "active",
+        "startDate": "2019-06-15",
+        "endDate": "2019-09-15",
+        "treatments": [
+            {
+                "properties": {
+                    "credit_apr": 0.2
+                },
+                "numSamples": 750,
+                "treatmentName": "control"
+            },
+            {
+                "properties": {
+                    "credit_apr": 0.175
+                },
+                "numSamples": 750,
+                "treatmentName": "treatment_1"
+            }
+        ],
+        "requiredAttributes": [
+            "user has FICO score above 700",
+            "user is applying for their first credit card"
+        ]
+    },
+    {
+        "testName": "Credit Card Account Opening - Credit Line and APR Test",
+        "testStatus": "active",
+        "startDate": "2019-07-01",
+        "endDate": "2019-21-31",
+        "treatments": [
+            {
+                "properties": {
+                    "credit_apr": 0.2,
+                    "credit_line": 10000
+                },
+                "numSamples": 2000,
+                "treatmentName": "control"
+            },
+            {
+                "properties": {
+                    "credit_apr": 0.2,
+                    "credit_line": 12000
+                },
+                "numSamples": 500,
+                "treatmentName": "treatment_1"
+            },
+            {
+                "properties": {
+                    "credit_apr": 0.175,
+                    "credit_line": 10000
+                },
+                "numSamples": 500,
+                "treatmentName": "treatment_2"
+            },
+            {
+                "properties": {
+                    "credit_apr": 0.175,
+                    "credit_line": 12000
+                },
+                "numSamples": 500,
+                "treatmentName": "treatment_3"
+            }
+        ],
+        "requiredAttributes": [
+            "user is under 30 years old"
+        ]
+    }
+]
