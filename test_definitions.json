@@ -113,5 +113,52 @@
                 "rule": "<"
             }
         ]
+    },
+    {
+        "testName": "Credit Card Account Opening - Credit Line and APR Test new one",
+        "testStatus": "active",
+        "startDate": "2018-07-01",
+        "endDate": "2018-12-31",
+        "treatments": [
+            {
+                "properties": {
+                    "credit_apr": 0.2,
+                    "credit_line": 10000
+                },
+                "numSamples": 2000,
+                "treatmentName": "control"
+            },
+            {
+                "properties": {
+                    "credit_apr": 0.2,
+                    "credit_line": 12000
+                },
+                "numSamples": 500,
+                "treatmentName": "treatment_1"
+            },
+            {
+                "properties": {
+                    "credit_apr": 0.175,
+                    "credit_line": 10000
+                },
+                "numSamples": 500,
+                "treatmentName": "treatment_2"
+            },
+            {
+                "properties": {
+                    "credit_apr": 0.175,
+                    "credit_line": 12000
+                },
+                "numSamples": 500,
+                "treatmentName": "treatment_3"
+            }
+        ],
+        "requiredAttributes": [
+            {
+                "property": "age",
+                "val": 25,
+                "rule": "<"
+            }
+        ]
     }
 ]

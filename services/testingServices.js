@@ -35,7 +35,7 @@ function getTestProperties(test) {
     return new Set(flatten(test.treatments.map(treatment => Object.keys(treatment.properties))))
 }
 
-function haveSameProps(testA, testB){
+function testSameProps(testA, testB){
     const propsA = getTestProperties(testA)
     const propsB = getTestProperties(testB)
     const combined = new Set([...propsA].filter(prop => propsB.has(prop))) // intersection
@@ -63,14 +63,14 @@ function segmentTests(testArray) {
             const testA = testArray[i];
             const testB = testArray[j];
             const overlap = testOverlapping(testA, testB);
-            const sameProps = haveSameProps(testA, testB);
+            const sameProps = testSameProps(testA, testB);
             // if tests dont have same props, push
             if (!sameProps && !testB.added) {
                 playNice.push(testB)
                 testB.added = true
             } else {
                 // else they affect same properties, cannot overlap
-                if (!overlap && testB.added) {
+                if (!overlap && !testB.added) {
                     playNice.push(testB)
                     testB.added = true
                 }
@@ -80,24 +80,51 @@ function segmentTests(testArray) {
         // segmented array
         if (playNice.length) segmented.push(playNice)
     }
+    
+    testArray.forEach(test => delete test.added);
 
     return segmented
 }
 
-
-function assignUsers() {
-    // const allUsers = getAllUsers();
-    const testDefs = require('../test_definitions.json')
-    console.log('test defs: ', testDefs);
-    const segmented = segmentTests(testDefs)
-    console.log('segmented: ', segmented)
-
+function removeUsers(originalUsers, assignedUsers) {
+    const assignedIds = new Set(assignedUsers.map(({ id }) => id));
+    // return array that does not have any ids that are in assigned users
+    return originalUsers.filter(({ id }) => !assignedIds.has(id))
 }
 
-assignUsers()
+function assignUsers(tests, users) {
+    const segmented = segmentTests(tests)
+    let userPool = users
+    let found = []
+    const groups = []
+    segmented.forEach((testSet) => {
+        
+        testSet.forEach((test) => {
+            const eligibleUsers = getEligibleUsers(userPool, test.requiredAttributes)
+            found = found.concat(eligibleUsers)
+            // console.log('eligible: ', eligibleUsers);
+            groups.push({
+                users: eligibleUsers,
+                ...test
+            })
+
+        })
+        
+        userPool = removeUsers(userPool, found); // remove found users from userPool
+        
+    })
+    
+    return groups
+
+}
 
 module.exports = {
-    evalAttribute,
+    assignUsers,
+    segmentTests,
+    testOverlapping,
+    testSameProps
 }
+
+
 
 
