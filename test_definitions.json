@@ -21,8 +21,16 @@
             }
         ],
         "requiredAttributes": [
-            "user is under 30 years old",
-            "user is applying for their first credit card"
+            {
+                "property": "age",
+                "val": 30,
+                "rule": "<"
+            },
+            {
+                "property": "n_credit_cards",
+                "val": 0,
+                "rule": "="
+            }
         ]
     },
     {
@@ -47,15 +55,23 @@
             }
         ],
         "requiredAttributes": [
-            "user has FICO score above 700",
-            "user is applying for their first credit card"
+            { 
+                "property": "fico_score",
+                "val": 700,
+                "rule": ">="
+            },
+            {
+                "property": "n_credit_cards",
+                "val": 0,
+                "rule": "="
+            }
         ]
     },
     {
         "testName": "Credit Card Account Opening - Credit Line and APR Test",
         "testStatus": "active",
         "startDate": "2019-07-01",
-        "endDate": "2019-21-31",
+        "endDate": "2019-12-31",
         "treatments": [
             {
                 "properties": {
@@ -91,7 +107,11 @@
             }
         ],
         "requiredAttributes": [
-            "user is under 30 years old"
+            {
+                "property": "age",
+                "val": 30,
+                "rule": "<"
+            }
         ]
     }
 ]
