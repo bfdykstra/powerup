@@ -9,7 +9,7 @@ const testDefs = require(testDefFile);
 
 
 router.get('/', (req, res) => {
-  res.send("Hey ( ͡° ͜ʖ ͡°), glad you're here! Navigate to localhost:3000/?n_users=5000 to really let this thing rip. Or replace 5000 with any number that you please.")
+  res.send("Hey ( ͡° ͜ʖ ͡°), glad you're here! Navigate to localhost:3000/testsWithUsers?n_users=5000 to really let this thing rip. Or replace 5000 with any number that you please.")
 })
 
 
