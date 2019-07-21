@@ -7,8 +7,14 @@ const logger = require('../services/logger');
 const testDefFile = '../test_definitions.json'
 const testDefs = require(testDefFile);
 
+
+router.get('/', (req, res) => {
+  res.send("Hey ( ͡° ͜ʖ ͡°), glad you're here! Navigate to localhost:3000/?n_users=5000 to really let this thing rip. Or replace 5000 with any number that you please.")
+})
+
+
 /* GET tests with users assigned */
-router.get('/', (req, res, next) => {
+router.get('/testsWithUsers', (req, res, next) => {
 
   const { n_users } = req.query;
   
@@ -22,6 +28,7 @@ router.get('/', (req, res, next) => {
       const users = generateUsers(n_users); // this could be replaced with a db call
 
       logger.info('Assigning ', n_users, ' users to test definitions from file: ', testDefFile) // just illustrating different uses of logger
+
       const testGroups = assignUsers(testDefs, users)
       res.status(200).json(testGroups)
     } catch (e) {
