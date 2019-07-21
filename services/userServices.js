@@ -21,6 +21,7 @@ const randomFloat = require('random-float');
   Ex: evalAttribute(1, '<', 2) => true
 */
 function evalAttribute(a, comparator, b) {
+    if (typeof a !== 'number' || typeof b !== 'number') throw Error('Input must be numeric')
     switch (comparator) {
         case '<':
             return a < b;

@@ -125,7 +125,7 @@ function segmentTests(testArray) {
 
 /*
   Given two arrays of user objects, 
-  return an array of assignedUsers removed from the originaluser array. (it's set difference)
+  return an array of assignedUsers removed from the originalUser array. (it's set difference)
 */
 function removeUsers(originalUsers, assignedUsers) {
     const assignedIds = new Set(assignedUsers.map(({ id }) => id));
