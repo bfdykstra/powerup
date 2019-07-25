@@ -9,25 +9,32 @@ const testDefs = require(testDefFile);
 
 
 router.get('/', (req, res) => {
-  res.send("Hey ( ͡° ͜ʖ ͡°), glad you're here! Navigate to localhost:3000/testsWithUsers?n_users=5000 to really let this thing rip. Or replace 5000 with any number that you please.")
+  res.send("Hey ( ͡° ͜ʖ ͡°), glad you're here! Navigate to localhost:3000/testsWithUsers?numUsers=5000 to really let this thing rip. Or replace 5000 with any number that you please.")
 })
 
 
 /* GET tests with users assigned */
 router.get('/testsWithUsers', (req, res, next) => {
 
-  const { n_users } = req.query;
+  const { numUsers } = req.query;
+
+  // this validation is my least favorite part of the code, would like to 
+  // use some express middleware eg express-validator to validate the params
+
+  const nUsers = parseInt(numUsers); // will convert floor a float to an int
   
-  if (!n_users ) {
-    res.status(422).json({"error": "Please provide the number of users you would like as a query parameter in 'n_users'"})
-  } else if( n_users <= 0) {
+  // check if they have provided a param, if they have that it is a number and an int
+  if (!nUsers || (typeof nUsers !== "number") || (nUsers % 1 !== 0) ) {
+    logger.error('bad parameter: ', nUsers);
+    res.status(422).json({"error": "Please provide the number of users as an integer that you would like as a query parameter in 'nUsers'"})
+  } else if( nUsers <= 0) {
     res.status(422).json({ "error": "Please provide a number of users greater than 0" })
   } else {
-    logger.info(`Generating ${n_users} users...`)
+    logger.info(`Generating ${nUsers} users...`)
     try {
-      const users = generateUsers(n_users); // this could be replaced with a db call
+      const users = generateUsers(nUsers); // this could be replaced with a db call
 
-      logger.info('Assigning ', n_users, ' users to test definitions from file: ', testDefFile) // just illustrating different uses of logger
+      logger.info('Assigning ', nUsers, ' users to test definitions from file: ', testDefFile) // just illustrating different uses of logger
 
       const testGroups = assignUsers(testDefs, users)
       res.status(200).json(testGroups)
